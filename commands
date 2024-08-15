@@ -1,0 +1,71 @@
+sudo apt update && sudo apt upgrade -y
+sudo apt install python3-pip python3-dev libpq-dev nginx curl git -y
+cd /home/ubuntu
+git clone https://github.com/mohd-shadman/django-ecommerce.git
+cd django-ecommerce
+sudo apt install python3-venv -y
+python3 -m venv venv
+source venv/bin/activate
+
+
+pip freeze > requirements.txt
+vim requirements.txt
+
+Django>=3.2,<4.0     ------- in 
+djangorestframework  ------- the 
+Pillow               ------- vim file
+
+:wq!
+
+pip install -r requirements.txt
+
+pip install razorpay
+pip freeze > requirements.txt
+pip install setuptools
+python manage.py migrate          
+python manage.py createsuperuser
+python manage.py collectstatic
+
+
+nano supershop/settings.py
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '3.145.80.232']   -------- vim file
+
+python manage.py runserver 0.0.0.0:8000
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+configure the nginx
+
+sudo nano /etc/nginx/sites-available/django-ecommerce
+
+
+server {
+    server_name your-domain.com www.your-domain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /static/ {
+        alias /home/ubuntu/django-ecommerce/static/;
+    }
+
+    location /media/ {
+        alias /home/ubuntu/django-ecommerce/media/;
+    }
+
+    listen 80;
+}
+
+
+:wq!
+
+sudo ln -s /etc/nginx/sites-available/django-ecommerce /etc/nginx/sites-enabled
+sudo nginx -t
+sudo systemctl restart nginx
