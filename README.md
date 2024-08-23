@@ -147,5 +147,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For any inquiries, please reach out to my instagram ssupshub.
 
 ---
-
-Feel free to customize the paths, domain names, and any other project-specific details according to your actual setup and preferences.
