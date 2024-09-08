@@ -28,7 +28,7 @@ python manage.py collectstatic
 
 
 nano supershop/settings.py
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '3.145.80.232']   -------- vim file
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '3.145.80.232'(your instance public ip)]   -------- vim file
 
 python manage.py runserver 0.0.0.0:8000
 
